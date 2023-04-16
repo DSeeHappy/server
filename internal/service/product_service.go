@@ -35,7 +35,7 @@ func (p ProductService) CreateProduct(ctx context.Context, request *model.Produc
 	return productResponse, nil
 }
 
-func (p ProductService) ReadProduct(ctx context.Context, request *model.ProductRequest) (*model.ProductResponse, error) {
+func (p ProductService) GetProduct(ctx context.Context, request *model.ProductRequest) (*model.ProductResponse, error) {
 	//TODO implement me
 	panic("implement me")
 }

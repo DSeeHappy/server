@@ -11,7 +11,7 @@ import (
 type ProductRepository interface {
 	ListProducts(ctx context.Context, req *model.ProductListResponse) (*model.ProductListResponse, error)
 	CreateProduct(ctx context.Context, req *model.ProductCreateRequest) (*model.ProductResponse, error)
-	ReadProduct(ctx context.Context, req *model.ProductRequest) (*model.ProductResponse, error)
+	GetProduct(ctx context.Context, req *model.ProductRequest) (*model.ProductResponse, error)
 	UpdateProduct(ctx context.Context, req *model.ProductCreateRequest) (*model.ProductResponse, error)
 	DeleteProduct(ctx context.Context, req *model.ProductRequest) (*model.ProductResponse, error)
 }
@@ -30,7 +30,7 @@ func (p productRepository) CreateProduct(ctx context.Context, req *model.Product
 	panic("implement me")
 }
 
-func (p productRepository) ReadProduct(ctx context.Context, req *model.ProductRequest) (*model.ProductResponse, error) {
+func (p productRepository) GetProduct(ctx context.Context, req *model.ProductRequest) (*model.ProductResponse, error) {
 	//TODO implement me
 	panic("implement me")
 }
