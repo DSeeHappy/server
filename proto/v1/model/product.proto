@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package model;
 
-option go_package = "github.com/dseehappy/server/v1/model;model";
+option go_package = "github.com/dseehappy/server/internal/model;model";
 
 message Product{
 	string id = 1;

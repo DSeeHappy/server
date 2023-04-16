@@ -1,10 +1,10 @@
 package main
 
 import (
-	"github.com/dseehappy/server/product/productpb"
 	"google.golang.org/grpc"
 	"log"
 	"net"
+	"server/internal/model"
 )
 
 const (
@@ -27,7 +27,7 @@ func main() {
 	// Create a gRPC server object
 	s := grpc.NewServer()
 	// Attach the Ping service to the server
-	model.product.pb.RegisterProductServiceServer(s, &server{})
+	model.File_product_proto.RegisterProductServiceServer(s, &server{})
 	// Serve gRPC Server
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %s", err)
