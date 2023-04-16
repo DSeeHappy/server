@@ -18,7 +18,7 @@ type productService interface {
 	repositories.ProductRepository
 }
 
-func (p ProductService) Create(ctx context.Context, request *model.ProductCreateRequest) (*model.ProductResponse, error) {
+func (p ProductService) CreateProduct(ctx context.Context, request *model.ProductCreateRequest) (*model.ProductResponse, error) {
 	// Validate the product fields
 	if request.Product.Name == "" {
 		return nil, errors.New("invalid product data")
@@ -28,29 +28,29 @@ func (p ProductService) Create(ctx context.Context, request *model.ProductCreate
 		Price: request.Product.Price,
 	}
 	// save to db
-	productResponse, err := p.repo.Create(ctx, &model.ProductCreateRequest{Product: product})
+	productResponse, err := p.repo.CreateProduct(ctx, &model.ProductCreateRequest{Product: product})
 	if err != nil {
 		return nil, err
 	}
 	return productResponse, nil
 }
 
-func (p ProductService) Read(ctx context.Context, request *model.ProductRequest) (*model.ProductResponse, error) {
+func (p ProductService) ReadProduct(ctx context.Context, request *model.ProductRequest) (*model.ProductResponse, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (p ProductService) Update(ctx context.Context, request *model.ProductCreateRequest) (*model.ProductResponse, error) {
+func (p ProductService) UpdateProduct(ctx context.Context, request *model.ProductCreateRequest) (*model.ProductResponse, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (p ProductService) Delete(ctx context.Context, request *model.ProductRequest) (*model.ProductResponse, error) {
+func (p ProductService) DeleteProduct(ctx context.Context, request *model.ProductRequest) (*model.ProductResponse, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (p ProductService) List(ctx context.Context, product *model.Product) (*model.ProductListResponse, error) {
+func (p ProductService) ListProducts(ctx context.Context, product *model.Product) (*model.ProductListResponse, error) {
 	//TODO implement me
 	panic("implement me")
 }

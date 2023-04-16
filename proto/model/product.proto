@@ -34,11 +34,11 @@ message ProductCreateRequest{
 }
 
 service ProductService{
-	rpc Create(ProductCreateRequest) returns (ProductResponse);
-	rpc Read(ProductRequest) returns (ProductResponse);
-	rpc Update(ProductCreateRequest) returns (ProductResponse);
-	rpc Delete(ProductRequest) returns (ProductResponse);
-	rpc List(Product) returns (ProductListResponse);
+	rpc CreateProduct(ProductCreateRequest) returns (ProductResponse);
+	rpc GetProduct(ProductRequest) returns (ProductResponse);
+	rpc UpdateProduct(ProductCreateRequest) returns (ProductResponse);
+	rpc DeleteProduct(ProductRequest) returns (ProductResponse);
+	rpc ListProducts(Product) returns (ProductListResponse);
 }
 
 service ProductImageService{
