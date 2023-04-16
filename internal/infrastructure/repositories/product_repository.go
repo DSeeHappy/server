@@ -26,8 +26,8 @@ func (p productRepository) List(ctx context.Context, req *model.ProductListRespo
 }
 
 func (p productRepository) Create(ctx context.Context, request *model.ProductCreateRequest) (*model.ProductResponse, error) {
-	//TODO implement me
-	panic("implement me")
+
+	return nil, nil
 }
 
 func (p productRepository) Read(ctx context.Context, request *model.ProductRequest) (*model.ProductResponse, error) {

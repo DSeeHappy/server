@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"errors"
 	"server/internal/infrastructure/repositories"
 	"server/internal/model"
 )
@@ -9,13 +10,29 @@ import (
 // Business Logic - Product
 
 type ProductService struct {
-	model.UnimplementedProductServiceServer
-	repo repositories.ProductRepository
+	model.UnsafeProductServiceServer
+	repo productService
+}
+
+type productService interface {
+	repositories.ProductRepository
 }
 
 func (p ProductService) Create(ctx context.Context, request *model.ProductCreateRequest) (*model.ProductResponse, error) {
-	//TODO implement me
-	panic("implement me")
+	// Validate the product fields
+	if request.Product.Name == "" {
+		return nil, errors.New("invalid product data")
+	}
+	product := &model.Product{
+		Name:  request.Product.Name,
+		Price: request.Product.Price,
+	}
+	// save to db
+	productResponse, err := p.repo.Create(ctx, &model.ProductCreateRequest{Product: product})
+	if err != nil {
+		return nil, err
+	}
+	return productResponse, nil
 }
 
 func (p ProductService) Read(ctx context.Context, request *model.ProductRequest) (*model.ProductResponse, error) {
