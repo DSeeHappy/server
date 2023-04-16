@@ -34,8 +34,9 @@ func main() {
 
 	// Create a gRPC server object
 	s := grpc.NewServer()
-	// Attach the Ping service to the server
+
 	model.RegisterProductServiceServer(s, productService)
+
 	// Serve gRPC Server
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %s", err)
