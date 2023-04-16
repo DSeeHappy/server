@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package model;
+
+option go_package = "github.com/dseehappy/model/v1;v1";
+
+message Product{
+	string id = 1;
+	string name = 2;
+	string description = 3;
+	string price = 4;
+	string category = 5;
+	string image = 6;
+}
+
+message ProductList{
+	repeated Product products = 1;
+}
+
+message ProductRequest{
+	string id = 1;
+}
+
+message ProductResponse{
+	Product product = 1;
+}
+
+message ProductListResponse{
+	ProductList products = 1;
+}
+
+message ProductCreateRequest{
+	Product product = 1;
+}
+
+service ProductService{
+	rpc Create(ProductCreateRequest) returns (ProductResponse);
+	rpc Read(ProductRequest) returns (ProductResponse);
+	rpc Update(ProductCreateRequest) returns (ProductResponse);
+	rpc Delete(ProductRequest) returns (ProductResponse);
+	rpc List(Product) returns (ProductListResponse);
+}
+
+service ProductImageService{
+	rpc Upload(stream ProductImageUploadRequest) returns (ProductImageUploadResponse);
+	rpc Download(ProductImageDownloadRequest) returns (stream ProductImageDownloadResponse);
+}
+
+message ProductImageUploadRequest{
+	string id = 1;
+	string name = 2;
+	string type = 3;
+	bytes data = 4;
+}
+
+message ProductImageUploadResponse{
+	string id = 1;
+	string name = 2;
+	string type = 3;
+}
+
+message ProductImageDownloadRequest{
+	string id = 1;
+}
+
+message ProductImageDownloadResponse{
+	bytes data = 1;
+}
+
+
+
