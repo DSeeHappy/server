@@ -1,36 +1,53 @@
 package main
 
 import (
+	"context"
+	"github.com/neo4j/neo4j-go-driver/v5/neo4j"
 	"google.golang.org/grpc"
 	"log"
 	"net"
+	"server/internal/infrastructure/repositories"
 	"server/internal/model"
+	"server/internal/service"
 )
 
 const (
 	port = ":50051"
 )
 
-type server struct {
-}
-
-func (s *server) CreateProduct(ctx context.Context, in *CreateProductRequest) (*CreateProductResponse, error) {
-	panic("implement me")
-}
-
 func main() {
+	ctx := context.Background()
+	uri := "bolt://localhost:7687"
+	username := "neo4j"
+	password := "password"
+
+	db, _ := newMockDB(ctx, uri, username, password)
+
 	// Create a listener on TCP port 50051
 	lis, err := net.Listen("tcp", port)
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
+
+	productRepo := repositories.NewProductRepository(db)
+	productService := service.NewProductService(productRepo)
+
 	// Create a gRPC server object
 	s := grpc.NewServer()
 	// Attach the Ping service to the server
-	model.File_product_proto.RegisterProductServiceServer(s, &server{})
+	model.RegisterProductServiceServer(s, productService)
 	// Serve gRPC Server
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %s", err)
 	}
 
+}
+
+func newMockDB(ctx context.Context, uri, username, password string) (neo4j.DriverWithContext, error) {
+	driver, err := neo4j.NewDriverWithContext(uri, neo4j.BasicAuth(username, password, ""))
+	if err != nil {
+		return driver, err
+	}
+	defer driver.Close(ctx)
+	return driver, nil
 }
