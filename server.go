@@ -9,6 +9,7 @@ import (
 	"server/internal/infrastructure/repositories"
 	"server/internal/model"
 	"server/internal/service"
+	"server/internal/transport/handler"
 )
 
 const (
@@ -31,11 +32,12 @@ func main() {
 
 	productRepo := repositories.NewProductRepository(db)
 	productService := service.NewProductService(productRepo)
+	productHandler := handler.NewProductHandler(*productService)
 
 	// Create a gRPC server object
 	s := grpc.NewServer()
 
-	model.RegisterProductServiceServer(s, productService)
+	model.RegisterProductServiceServer(s, productHandler)
 
 	// Serve gRPC Server
 	if err := s.Serve(lis); err != nil {
