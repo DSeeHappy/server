@@ -51,6 +51,11 @@ func newMockDB(ctx context.Context, uri, username, password string) (neo4j.Drive
 	if err != nil {
 		return driver, err
 	}
-	defer driver.Close(ctx)
+	defer func(driver neo4j.DriverWithContext, ctx context.Context) {
+		err := driver.Close(ctx)
+		if err != nil {
+			log.Fatal(err)
+		}
+	}(driver, ctx)
 	return driver, nil
 }
